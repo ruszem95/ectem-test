@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { testCategoryData, testTreeDataList } from "@/data";
-import { TreeDataItem } from "@/models";
+import { TreeData, TreeDataItem, TreeDataStatus } from "@/models";
 
 Vue.use(Vuex);
 
@@ -29,6 +29,12 @@ export default new Vuex.Store({
     setTreeItemValue(state, payload: { item: TreeDataItem; value: number }) {
       payload.item.value = payload.value;
     },
+    setTreeDataStatus(
+      state,
+      payload: { data: TreeData; status: TreeDataStatus }
+    ) {
+      payload.data.status = payload.status;
+    },
   },
   actions: {
     setActiveMenuItemId({ commit }, id: string | null) {
@@ -46,6 +52,12 @@ export default new Vuex.Store({
         item,
         value: payload.value,
       });
+    },
+    setTreeDataStatus(
+      { commit },
+      payload: { data: TreeData; status: TreeDataStatus }
+    ) {
+      commit("setTreeDataStatus", payload);
     },
   },
   modules: {},

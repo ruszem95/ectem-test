@@ -1,7 +1,11 @@
 <template>
   <div class="tree-data">
-    <div @click="expanded = !expanded">
-      <expandable-title :expanded="expanded" class="category-item__header">
+    <div class="d-flex justify-content-between">
+      <expandable-title
+        @click.native="expanded = !expanded"
+        :expanded="expanded"
+        class="category-item__header"
+      >
         <template #title>
           <span style="margin-right: 4px">
             <b-icon
@@ -11,9 +15,17 @@
             />
             <b-icon v-else icon="folder2-open" style="color: var(--yellow)" />
           </span>
-          <span>Level 1: {{ treeData.name }}</span>
+          <span>{{ treeData.name }}</span>
         </template>
       </expandable-title>
+
+      <b-form-select
+        size="sm"
+        style="max-width: 25%; font-size: 12px"
+        :value="treeData.status"
+        :options="statusOptions"
+        @change="onStatusChanged"
+      ></b-form-select>
     </div>
     <div v-show="expanded">
       <tree-item
@@ -29,7 +41,7 @@
 import { defineComponent, PropType } from "vue";
 import TreeItem from "@/components/TreeItem.vue";
 import ExpandableTitle from "@/components/ExpandableTitle.vue";
-import { TreeData } from "@/models";
+import { TreeData, TreeDataStatus } from "@/models";
 
 export default defineComponent({
   components: { ExpandableTitle, TreeItem },
@@ -40,6 +52,19 @@ export default defineComponent({
   },
   props: {
     treeData: Object as PropType<TreeData>,
+  },
+  computed: {
+    statusOptions() {
+      return Object.values(TreeDataStatus);
+    },
+  },
+  methods: {
+    onStatusChanged(status: string) {
+      this.$store.dispatch("setTreeDataStatus", {
+        data: this.treeData,
+        status,
+      });
+    },
   },
 });
 </script>
