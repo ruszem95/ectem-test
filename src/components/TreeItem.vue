@@ -5,6 +5,9 @@
       <b-col sm="3">
         <template v-if="editMode">
           <b-input
+            ref="inputRef"
+            @keyup.enter="saveAndExitEditMode"
+            @keyup.esc="toggleEditMode(false)"
             type="number"
             v-model="editValue"
             style="height: 32px; margin-left: -12px"
@@ -63,6 +66,11 @@ export default defineComponent({
       this.editMode = val;
       if (val) {
         this.editValue = this.item?.value || 0;
+        this.$nextTick(() => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          this.$refs["inputRef"]?.$el.focus();
+        });
       }
     },
     saveAndExitEditMode() {
