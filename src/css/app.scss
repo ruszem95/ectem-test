@@ -1,12 +1,12 @@
 @import "~bootstrap-vue/node_modules/bootstrap/scss/bootstrap.scss";
-@import '~bootstrap-vue/src/index.scss';
+@import "~bootstrap-vue/src/index.scss";
 @import "~bootstrap-vue/src/icons";
 
 .icon-hover {
   cursor: pointer;
 
   &:hover {
-    color: var(--primary)
+    color: var(--primary);
   }
 }
 
