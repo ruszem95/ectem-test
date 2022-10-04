@@ -7,7 +7,7 @@
       </div>
     </slot>
     <div class="expandable-title__title">
-      <slot name="title">{{ title }}</slot>
+      <slot name="title" v-bind:expanded="expanded">{{ title }}</slot>
     </div>
     <div>
       <slot name="right"></slot>

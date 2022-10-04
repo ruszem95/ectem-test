@@ -2,10 +2,10 @@
   <div class="category-item" :class="{ active: isActive }">
     <div @click="toggleActive">
       <expandable-title :expanded="isActive" class="category-item__header">
-        <template #title>
+        <template v-slot:title="{ expanded }">
           <span style="margin-right: 4px">
             <b-icon
-              v-if="!isActive"
+              v-if="!expanded"
               icon="folder2"
               style="color: var(--yellow)"
             />
